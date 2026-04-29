@@ -9,38 +9,44 @@ app = Flask(__name__)
 
 
 def analyze_resume(text):
+    text = text.lower()
     result = []
 
-    text = text.lower()
-
     # Skill detection
-    if "python" in text:
-        result.append("✔ Python detected")
-    else:
-        result.append("⚠ Python missing")
+    skills = {
+        "python": "✔ Python detected",
+        "machine learning": "✔ Machine Learning detected",
+        "data analysis": "✔ Data Analysis detected",
+        "java": "✔ Java detected",
+    }
 
-    if "machine learning" in text:
-        result.append("✔ Machine Learning detected")
-    else:
+    for skill, message in skills.items():
+        if skill in text:
+            result.append(message)
+
+    # Missing important skills
+    if "python" not in text:
+        result.append("⚠ Python missing")
+    if "machine learning" not in text:
         result.append("⚠ Machine Learning missing")
 
-    if "data analysis" in text:
-        result.append("✔ Data Analysis detected")
+    # Suggested roles
+    result.append("")
+    result.append("Suggested Roles:")
+    result.extend([
+        "- Data Analyst",
+        "- AI/ML Intern",
+        "- Software Developer"
+    ])
 
     # Suggestions
     result.append("")
-
-    result.append("Suggested Roles:")
-    result.append("- Data Analyst")
-    result.append("- AI/ML Intern")
-    result.append("- Software Developer")
-
-    # Improvement tips
-    result.append("")
     result.append("Suggestions:")
-    result.append("- Add more technical projects")
-    result.append("- Include GitHub profile")
-    result.append("- Highlight key skills clearly")
+    result.extend([
+        "- Add more technical projects",
+        "- Include GitHub profile",
+        "- Highlight key skills clearly"
+    ])
 
     return result
 
@@ -50,9 +56,9 @@ def home():
     output = []
 
     if request.method == "POST":
-        resume = request.form.get("resume", "")
-        
-        if resume.strip() == "":
+        resume = request.form.get("resume", "").strip()
+
+        if not resume:
             output = ["⚠ Please enter resume text"]
         else:
             output = analyze_resume(resume)
