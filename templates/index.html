@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Analyzer</title>
+</head>
+<body>
+
+<h2>AI Resume Analyzer</h2>
+
+<form method="POST">
+    <textarea name="resume" rows="10" cols="50" placeholder="Paste your resume here"></textarea><br><br>
+    <button type="submit">Analyze</button>
+</form>
+
+<h3>Results:</h3>
+<ul>
+    {% for item in output %}
+        <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
