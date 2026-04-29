@@ -20,28 +20,35 @@ def analyze_resume(text):
         "java": "✔ Java detected",
     }
 
+    detected = []
+
     for skill, message in skills.items():
         if skill in text:
             result.append(message)
+            detected.append(skill)
 
     # Missing important skills
-    if "python" not in text:
+    if "python" not in detected:
         result.append("⚠ Python missing")
-    if "machine learning" not in text:
+    if "machine learning" not in detected:
         result.append("⚠ Machine Learning missing")
 
     # Suggested roles
     result.append("")
     result.append("Suggested Roles:")
-    result.extend([
-        "- Data Analyst",
-        "- AI/ML Intern",
-        "- Software Developer"
-    ])
+    roles = ["Data Analyst", "AI/ML Intern", "Software Developer"]
+    for role in roles:
+        result.append(f"- {role}")
 
     # Suggestions
     result.append("")
     result.append("Suggestions:")
+
+    if "python" not in detected:
+        result.append("- Learn Python basics")
+    if "machine learning" not in detected:
+        result.append("- Add ML projects")
+
     result.extend([
         "- Add more technical projects",
         "- Include GitHub profile",
