@@ -2,22 +2,72 @@
 <html>
 <head>
     <title>AI Resume Analyzer</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        textarea {
+            width: 60%;
+            height: 150px;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            display: inline-block;
+            text-align: left;
+            width: 60%;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
-<h2>AI Resume Analyzer</h2>
+    <h1>AI Resume Analyzer</h1>
 
-<form method="POST">
-    <textarea name="resume" rows="10" cols="50" placeholder="Paste your resume here"></textarea><br><br>
-    <button type="submit">Analyze</button>
-</form>
+    <form method="POST">
+        <textarea name="resume" placeholder="Paste your resume here..."></textarea><br>
+        <button type="submit">Analyze</button>
+    </form>
 
-<h3>Results:</h3>
-<ul>
-    {% for item in output %}
-        <li>{{ item }}</li>
-    {% endfor %}
-</ul>
+    {% if output %}
+    <div class="result">
+        <h3>Results:</h3>
+        <ul>
+            {% for item in output %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
 </body>
 </html>
